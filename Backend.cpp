@@ -92,7 +92,14 @@ void Backend::setIconForFile()
         return;
     }
 
-    setFolderIcon(m_selectedFile.toLocalFile().toStdWString(), m_selectedIcon.toLocalFile().toStdWString());
+    bool iconChangeCompleted = setFolderIcon(m_selectedFile.toLocalFile().toStdWString(), m_selectedIcon.toLocalFile().toStdWString());
+    if(!iconChangeCompleted)
+    {
+        qDebug() << "changing folder icon failed";
+        return;
+    }
+
+    qDebug() << "icon changed successfully";
 
     this->setIsFileSelected(false);
     this->setIsIconSelected(false);
