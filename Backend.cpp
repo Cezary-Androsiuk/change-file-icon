@@ -49,7 +49,7 @@ void Backend::setSelectedFile(QUrl selectedFile)
 
     if(!this->fileIsDir(selectedFile))
     {
-        qDebug() << "file" << selectedFile << "is not directory!";
+        qDebug() << "file" << selectedFile << "is not a directory!";
         return;
     }
 
@@ -122,7 +122,17 @@ bool Backend::iconIsValid(const QUrl &url) const
 {
     QString filePath = url.toLocalFile();
     QList<QByteArray> supportedFormats = QImageReader::supportedImageFormats();
+    for(const auto &i : supportedFormats)
+        qDebug() << i;
     QFileInfo fileInfo(filePath);
     QString fileSuffix = fileInfo.suffix().toLower();
     return supportedFormats.contains(fileSuffix.toUtf8());
+}
+
+bool Backend::iconIsIco(const QUrl &url) const
+{
+    QString filePath = url.toLocalFile();
+    QFileInfo fileInfo(filePath);
+    QString fileSuffix = fileInfo.suffix().toLower();
+    return fileSuffix == "ico";
 }

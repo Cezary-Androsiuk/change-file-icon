@@ -35,6 +35,7 @@ private:
     bool fileExist(const QUrl &url) const;
     bool fileIsDir(const QUrl &url) const;
     bool iconIsValid(const QUrl &url) const;
+    bool iconIsIco(const QUrl &url) const;
 
 signals:
     void isFileSelectedChanged();
