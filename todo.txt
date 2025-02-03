@@ -1,0 +1,6 @@
+- add handling all image formats (any -> ico conversion)
+- warning popups
+- completed popups
+- more descriptive fields
+- better button and fields separator
+- instead of disabled button add popup to inform about missing folder or icon
