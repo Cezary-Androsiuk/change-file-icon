@@ -92,7 +92,7 @@ void Backend::setIconForFile()
         return;
     }
 
-
+    setFolderIcon(m_selectedFile.toLocalFile().toStdWString(), m_selectedIcon.toLocalFile().toStdWString());
 
     this->setIsFileSelected(false);
     this->setIsIconSelected(false);

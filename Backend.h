@@ -8,6 +8,8 @@
 #include <QFileInfo>
 #include <QImageReader>
 
+#include "WindowsFunctions.h"
+
 class Backend : public QObject
 {
     Q_OBJECT

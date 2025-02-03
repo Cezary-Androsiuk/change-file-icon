@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <shlobj.h>
 #include <string>
+#include <fstream>
+#include <iostream>
 
 typedef const std::wstring &cwstr;
 
