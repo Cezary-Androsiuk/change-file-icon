@@ -3,16 +3,19 @@ import QtQuick.Controls.Material
 
 ApplicationWindow {
     id: root
+    minimumWidth: 250
+    minimumHeight: 350
     width: 380
     height: 580
     visible: true
-    title: qsTr("Hello World")
-    onHeightChanged: {
-        console.log("w: "+width + ", h: ", height);
-    }
-    onWidthChanged: {
-        console.log("w: "+width + ", h: ", height);
-    }
+    title: qsTr("Set Own Icon")
+
+    // onHeightChanged: {
+    //     console.log("w: "+width + ", h: ", height);
+    // }
+    // onWidthChanged: {
+    //     console.log("w: "+width + ", h: ", height);
+    // }
 
     readonly property color fileEnterColor: "lightblue"
     readonly property color fileExitColor: "lightgray"
@@ -67,14 +70,15 @@ ApplicationWindow {
             top: parent.top
             left: parent.left
             right: parent.right
+            margins: 10
         }
         height: parent.height * 0.35
+        clip: true
 
         Rectangle{
             id: fileAreaReact
             anchors{
                 fill: parent
-                margins: 10
             }
 
             color: {
@@ -114,6 +118,33 @@ ApplicationWindow {
                 root.fileColor = root.fileExitColor;
             }
         }
+
+        Label{
+            id: folderAreaLabel
+            anchors.centerIn: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            text: "Drop Folder Here"
+            font.pixelSize: 20
+            // font.bold: true
+        }
+        Label{
+            anchors{
+                top: folderAreaLabel.bottom
+                left: parent.left
+                right: parent.right
+            }
+            visible: Backend.isFileSelected
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WrapAnywhere
+
+            text: Backend.selectedFile
+            font.pixelSize: 14
+            // font.bold: true
+        }
     }
 
     Item{
@@ -123,13 +154,14 @@ ApplicationWindow {
             bottom: confirmButtonArea.top
             left: parent.left
             right: parent.right
+            margins: 10
         }
+        clip: true
 
         Rectangle{
             id: itemAreaReact
             anchors{
                 fill: parent
-                margins: 10
             }
 
             color: {
@@ -168,6 +200,33 @@ ApplicationWindow {
 
                 root.iconColor = root.iconExitColor;
             }
+        }
+
+        Label{
+            id: iconAreaLabel
+            anchors.centerIn: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            text: "Drop Icon Here"
+            font.pixelSize: 20
+            // font.bold: true
+        }
+        Label{
+            anchors{
+                top: iconAreaLabel.bottom
+                left: parent.left
+                right: parent.right
+            }
+            visible: Backend.isIconSelected
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WrapAnywhere
+
+            text: Backend.selectedIcon
+            font.pixelSize: 14
+            // font.bold: true
         }
 
     }

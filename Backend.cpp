@@ -34,6 +34,16 @@ bool Backend::getIsIconSelected() const
     return m_isIconSelected;
 }
 
+const QString &Backend::getSelectedFile() const
+{
+    return m_selectedFile;
+}
+
+const QString &Backend::getSelectedIcon() const
+{
+    return m_selectedIcon;
+}
+
 void Backend::setSelectedFile(QUrl selectedFile)
 {
     // qDebug() << "setSelectedFile" << selectedFile;
@@ -44,18 +54,20 @@ void Backend::setSelectedFile(QUrl selectedFile)
     if(!this->fileExist(selectedFile))
     {
         qDebug() << "file" << selectedFile << "not exist!";
+        emit this->selectedFileChanged();
         return;
     }
 
     if(!this->fileIsDir(selectedFile))
     {
         qDebug() << "file" << selectedFile << "is not a directory!";
+        emit this->selectedFileChanged();
         return;
     }
 
     m_selectedFile = selectedFile.toLocalFile();
-
     this->setIsFileSelected(true);
+    emit this->selectedFileChanged();
 }
 
 void Backend::setSelectedIcon(QUrl selectedIcon)
@@ -68,18 +80,20 @@ void Backend::setSelectedIcon(QUrl selectedIcon)
     if(!this->fileExist(selectedIcon))
     {
         qDebug() << "icon" << selectedIcon << "not exist!";
+        emit this->selectedIconChanged();
         return;
     }
 
     if(!ImageHandler::iconIsValidFormat(selectedIcon.toLocalFile()))
     {
         qDebug() << "icon" << selectedIcon << "is not valid format!";
+        emit this->selectedIconChanged();
         return;
     }
 
     m_selectedIcon = selectedIcon.toLocalFile();
-
     this->setIsIconSelected(true);
+    emit this->selectedIconChanged();
 }
 
 void Backend::setIconForFile()

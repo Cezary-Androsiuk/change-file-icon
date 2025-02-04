@@ -16,6 +16,8 @@ class Backend : public QObject
     Q_OBJECT
     Q_PROPERTY(bool isFileSelected READ getIsFileSelected NOTIFY isFileSelectedChanged FINAL)
     Q_PROPERTY(bool isIconSelected READ getIsIconSelected NOTIFY isIconSelectedChanged FINAL)
+    Q_PROPERTY(QString selectedFile READ getSelectedFile NOTIFY selectedFileChanged FINAL)
+    Q_PROPERTY(QString selectedIcon READ getSelectedIcon NOTIFY selectedIconChanged FINAL)
 
 public:
     explicit Backend(QObject *parent = nullptr);
@@ -25,6 +27,9 @@ public:
 
     void setIsIconSelected(bool isIconSelected);
     bool getIsIconSelected() const;
+
+    const QString &getSelectedFile() const;
+    const QString &getSelectedIcon() const;
 
 public slots:
     void setSelectedFile(QUrl selectedFile);
@@ -39,6 +44,8 @@ private:
 signals:
     void isFileSelectedChanged();
     void isIconSelectedChanged();
+    void selectedFileChanged();
+    void selectedIconChanged();
 
 private:
     bool m_isFileSelected;
