@@ -19,6 +19,7 @@ qt_add_qml_module(appSetOwnIcon
         Main.qml
         SOURCES Backend.h Backend.cpp
         SOURCES WindowsFunctions.h WindowsFunctions.cpp
+        SOURCES ImageHandler.h ImageHandler.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -53,7 +53,7 @@ void Backend::setSelectedFile(QUrl selectedFile)
         return;
     }
 
-    m_selectedFile = selectedFile;
+    m_selectedFile = selectedFile.toLocalFile();
 
     this->setIsFileSelected(true);
 }
@@ -71,13 +71,13 @@ void Backend::setSelectedIcon(QUrl selectedIcon)
         return;
     }
 
-    if(!this->iconIsValid(selectedIcon))
+    if(!ImageHandler::iconIsValidFormat(selectedIcon.toLocalFile()))
     {
-        qDebug() << "icon" << selectedIcon << "is not valid!";
+        qDebug() << "icon" << selectedIcon << "is not valid format!";
         return;
     }
 
-    m_selectedIcon = selectedIcon;
+    m_selectedIcon = selectedIcon.toLocalFile();
 
     this->setIsIconSelected(true);
 }
@@ -92,7 +92,14 @@ void Backend::setIconForFile()
         return;
     }
 
-    bool iconChangeCompleted = setFolderIcon(m_selectedFile.toLocalFile().toStdWString(), m_selectedIcon.toLocalFile().toStdWString());
+    QString validIconPath;
+    if(!ImageHandler::handleFile(m_selectedIcon, validIconPath))
+    {
+        qDebug() << "cannot handle image file";
+        return;
+    }
+
+    bool iconChangeCompleted = setFolderIcon(m_selectedFile.toStdWString(), validIconPath.toStdWString());
     if(!iconChangeCompleted)
     {
         qDebug() << "changing folder icon failed";
@@ -125,21 +132,24 @@ bool Backend::fileIsDir(const QUrl &url) const
     return fileInfo.isDir(); // fileInfo.isFile()
 }
 
-bool Backend::iconIsValid(const QUrl &url) const
-{
-    QString filePath = url.toLocalFile();
-    QList<QByteArray> supportedFormats = QImageReader::supportedImageFormats();
-    for(const auto &i : supportedFormats)
-        qDebug() << i;
-    QFileInfo fileInfo(filePath);
-    QString fileSuffix = fileInfo.suffix().toLower();
-    return supportedFormats.contains(fileSuffix.toUtf8());
-}
 
-bool Backend::iconIsIco(const QUrl &url) const
-{
-    QString filePath = url.toLocalFile();
-    QFileInfo fileInfo(filePath);
-    QString fileSuffix = fileInfo.suffix().toLower();
-    return fileSuffix == "ico";
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

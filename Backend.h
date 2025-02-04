@@ -9,6 +9,7 @@
 #include <QImageReader>
 
 #include "WindowsFunctions.h"
+#include "ImageHandler.h"
 
 class Backend : public QObject
 {
@@ -34,8 +35,6 @@ public slots:
 private:
     bool fileExist(const QUrl &url) const;
     bool fileIsDir(const QUrl &url) const;
-    bool iconIsValid(const QUrl &url) const;
-    bool iconIsIco(const QUrl &url) const;
 
 signals:
     void isFileSelectedChanged();
@@ -43,9 +42,9 @@ signals:
 
 private:
     bool m_isFileSelected;
-    QUrl m_selectedFile;
+    QString m_selectedFile;
     bool m_isIconSelected;
-    QUrl m_selectedIcon;
+    QString m_selectedIcon;
 };
 
 #endif // BACKEND_H
